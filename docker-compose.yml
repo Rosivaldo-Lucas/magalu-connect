@@ -1,0 +1,15 @@
+services:
+  db-magalu-connect:
+    image: postgres:16.3-alpine3.20
+    container_name: db-magalu-connect
+    environment:
+      POSTGRES_DB: db-magalu-connect
+      POSTGRES_USER: magalu-connect
+      POSTGRES_PASSWORD: magalu-connect
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data-db-magalu-connect:/var/lib/postgresql/data
+
+volumes:
+  db-data-db-magalu-connect:
