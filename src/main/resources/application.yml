@@ -11,8 +11,8 @@ spring:
     password: magalu-connect
   jpa:
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      ddl-auto: none
+    generate-ddl: false
     show-sql: true
     properties:
       hibernate:
@@ -23,7 +23,7 @@ spring:
 
 logging:
   level:
-    com.rosivaldolucas.ead: TRACE
+    com.rosivaldolucas.magalu_connect: TRACE
     root: INFO
     org.springframework.web: DEBUG
     org.hibernate: INFO
