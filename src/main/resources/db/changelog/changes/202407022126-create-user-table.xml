@@ -5,28 +5,28 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
   <changeSet id="1719966518967-1" author="Rosivaldo Lucas">
-    <createTable tableName="USER">
-      <column name="ID" type="uuid">
+    <createTable tableName="user_table">
+      <column name="id" type="uuid">
         <constraints primaryKey="true" nullable="false" />
       </column>
 
-      <column name="NAME" type="varchar(100)">
+      <column name="name" type="varchar(100)">
         <constraints nullable="false" />
       </column>
 
-      <column name="USERNAME" type="varchar(50)">
+      <column name="username" type="varchar(50)">
         <constraints nullable="false" />
       </column>
 
-      <column name="PASSWORD" type="varchar(100)">
+      <column name="password" type="varchar(100)">
         <constraints nullable="false" />
       </column>
 
-      <column name="CREATED_AT" type="datetime">
+      <column name="created_at" type="datetime">
         <constraints nullable="false" />
       </column>
 
-      <column name="UPDATED_AT" type="datetime">
+      <column name="updated_at" type="datetime">
         <constraints nullable="false" />
       </column>
     </createTable>
