@@ -27,7 +27,7 @@
       </column>
 
       <column name="sent_at" type="datetime">
-        <constraints nullable="false" />
+        <constraints nullable="true" />
       </column>
 
       <column name="created_at" type="datetime">
@@ -55,7 +55,7 @@
   <changeSet id="1720143504784-3" author="Rosivaldo Lucas">
     <createTable tableName="user_recipient_message_tb">
       <column name="message_id" type="uuid">
-        <constraints primaryKey="true" nullable="false" />
+        <constraints nullable="false" />
       </column>
 
       <column name="recipient" type="varchar(100)">
