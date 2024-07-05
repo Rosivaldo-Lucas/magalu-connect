@@ -1,6 +1,6 @@
 package com.rosivaldolucas.magalu_connect.enums;
 
-public enum ChannelTypeMessage {
+public enum ChannelMessageType {
 
   EMAIL,
   SMS,
