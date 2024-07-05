@@ -1,12 +1,11 @@
 package com.rosivaldolucas.magalu_connect.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.rosivaldolucas.magalu_connect.enums.ChannelTypeMessage;
+import com.rosivaldolucas.magalu_connect.enums.ChannelMessageType;
 import com.rosivaldolucas.magalu_connect.enums.MessageStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,7 +26,7 @@ public class Message {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "channel_type", nullable = false)
-  private ChannelTypeMessage channelType;
+  private ChannelMessageType channelType;
 
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm'Z'")
   @Column(name = "scheduled_at", nullable = false)
@@ -55,6 +54,25 @@ public class Message {
           joinColumns = @JoinColumn(name = "message_id")
   )
   @Column(name = "recipient")
-  private Set<String> recipients = new HashSet<>();
+  private Set<String> recipients;
+
+  protected Message() { }
+
+  private Message(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User sender, Set<String> recipients) {
+    this.content = content;
+    this.status = MessageStatus.SCHEDULED;
+    this.channelType = channelType;
+    this.scheduledAt = scheduledAt;
+    this.sender = sender;
+    this.recipients = recipients;
+
+    LocalDateTime now = LocalDateTime.now();
+    this.createdAt = now;
+    this.updatedAt = now;
+  }
+
+  public static Message createWith(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User sender, Set<String> recipients) {
+    return new Message(content, channelType, scheduledAt, sender, recipients);
+  }
 
 }
