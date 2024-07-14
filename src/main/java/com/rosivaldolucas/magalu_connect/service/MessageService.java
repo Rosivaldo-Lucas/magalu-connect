@@ -45,4 +45,11 @@ public class MessageService {
     });
   }
 
+  public void cancel(UUID messageId) {
+    Message messageToCancel = this.consult(messageId);
+    messageToCancel.markAsCanceled();
+
+    this.messageRepository.save(messageToCancel);
+  }
+
 }

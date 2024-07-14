@@ -3,6 +3,7 @@ package com.rosivaldolucas.magalu_connect.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rosivaldolucas.magalu_connect.enums.ChannelMessageType;
 import com.rosivaldolucas.magalu_connect.enums.MessageStatus;
+import com.rosivaldolucas.magalu_connect.exception.MessageAlreadySentException;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -87,6 +88,17 @@ public class Message {
     LocalDateTime now = LocalDateTime.now();
 
     this.status = MessageStatus.FAILED;
+    this.updatedAt = now;
+  }
+
+  public void markAsCanceled() {
+    if (this.status.equals(MessageStatus.SENT)) {
+      throw new MessageAlreadySentException("Message cannot be canceled, message has already been sent");
+    }
+
+    LocalDateTime now = LocalDateTime.now();
+
+    this.status = MessageStatus.CANCELED;
     this.updatedAt = now;
   }
 
