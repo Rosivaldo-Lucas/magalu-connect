@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -15,5 +16,8 @@ public interface MessageRepository extends JpaRepository<Message, UUID> {
 
   @Query("SELECT m FROM Message AS m WHERE m.status = 'SCHEDULED' AND m.scheduledAt < :currentDateTime")
   List<Message> findAllByStatusScheduledAndScheduledAtBefore(@Param("currentDateTime") LocalDateTime currentDateTime);
+
+  @Query("SELECT m FROM Message AS m WHERE m.id = :messageId AND m.userSender = :userId")
+  Optional<Message> findByIdAndUserSenderId(UUID userId, UUID messageId);
 
 }

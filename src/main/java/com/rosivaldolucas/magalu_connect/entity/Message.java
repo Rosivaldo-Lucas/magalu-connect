@@ -47,7 +47,7 @@ public class Message {
 
   @ManyToOne(optional = false)
   @JoinColumn(name = "sender_id")
-  private User sender;
+  private User userSender;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(
@@ -59,12 +59,12 @@ public class Message {
 
   protected Message() { }
 
-  private Message(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User sender, Set<String> recipients) {
+  private Message(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User userSender, Set<String> recipients) {
     this.content = content;
     this.status = MessageStatus.SCHEDULED;
     this.channelType = channelType;
     this.scheduledAt = scheduledAt;
-    this.sender = sender;
+    this.userSender = userSender;
     this.recipients = recipients;
 
     LocalDateTime now = LocalDateTime.now();
@@ -72,8 +72,8 @@ public class Message {
     this.updatedAt = now;
   }
 
-  public static Message createWith(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User sender, Set<String> recipients) {
-    return new Message(content, channelType, scheduledAt, sender, recipients);
+  public static Message createWith(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User userSender, Set<String> recipients) {
+    return new Message(content, channelType, scheduledAt, userSender, recipients);
   }
 
   public void markAsSent() {
@@ -134,8 +134,8 @@ public class Message {
     return updatedAt;
   }
 
-  public User getSender() {
-    return sender;
+  public User getUserSender() {
+    return userSender;
   }
 
   public Set<String> getRecipients() {
@@ -153,7 +153,7 @@ public class Message {
             ", sentAt=" + sentAt +
             ", createdAt=" + createdAt +
             ", updatedAt=" + updatedAt +
-            ", sender=" + sender +
+            ", userSender=" + userSender +
             ", recipients=" + recipients +
             '}';
   }

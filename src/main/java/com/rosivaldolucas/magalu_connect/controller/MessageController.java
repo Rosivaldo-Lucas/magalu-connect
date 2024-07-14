@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/users/{userId}/messages")
 public class MessageController {
 
   private final MessageService messageService;
@@ -19,18 +19,18 @@ public class MessageController {
     this.messageService = messageService;
   }
 
-  @GetMapping("/{messageId}")
-  public ResponseEntity<ConsultMessageResponseDTO> consult(@PathVariable UUID messageId) {
-    Message consultedMessage = this.messageService.consult(messageId);
+  @GetMapping("/{messageId}/consult")
+  public ResponseEntity<ConsultMessageResponseDTO> consult(@PathVariable UUID userId, @PathVariable UUID messageId) {
+    Message consultedMessage = this.messageService.consult(userId, messageId);
 
     ConsultMessageResponseDTO consultMessageResponseDTO = ConsultMessageResponseDTO.create(consultedMessage);
 
     return ResponseEntity.status(HttpStatus.OK).body(consultMessageResponseDTO);
   }
 
-  @DeleteMapping("/{messageId}")
-  public ResponseEntity<Void> cancel(@PathVariable UUID messageId) {
-    this.messageService.cancel(messageId);
+  @DeleteMapping("/{messageId}/cancel")
+  public ResponseEntity<Void> cancel(@PathVariable UUID userId, @PathVariable UUID messageId) {
+    this.messageService.cancel(userId, messageId);
 
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }

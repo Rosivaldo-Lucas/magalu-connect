@@ -20,7 +20,7 @@ public record ConsultMessageResponseDTO(
 ) {
 
   public static ConsultMessageResponseDTO create(Message message) {
-    UserInfoResponseDTO userInfoResponseDTO = UserInfoResponseDTO.create(message.getSender());
+    UserInfoResponseDTO userInfoResponseDTO = UserInfoResponseDTO.create(message.getUserSender());
 
     return new ConsultMessageResponseDTO(
             message.getId(), message.getContent(), message.getStatus(), message.getChannelType(),
