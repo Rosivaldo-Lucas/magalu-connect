@@ -8,12 +8,8 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 public record ScheduleMessageDTO(
-        @NotNull
-        UUID senderId,
-
         @NotNull
         Set<String> recipients,
 
