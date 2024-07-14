@@ -90,6 +90,10 @@ public class Message {
     this.updatedAt = now;
   }
 
+  public UUID getId() {
+    return id;
+  }
+
   public String getContent() {
     return content;
   }

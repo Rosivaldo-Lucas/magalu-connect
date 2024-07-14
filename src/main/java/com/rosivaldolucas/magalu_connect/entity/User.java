@@ -44,4 +44,27 @@ public class User {
     return new User(name, username, password);
   }
 
+  public UUID getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
 }
