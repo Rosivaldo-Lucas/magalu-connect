@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: magalu-connect
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: localstack
+
+aws:
+  paramstore:
+    enabled: true
+    endpoint: http://localhost:4566
