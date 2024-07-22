@@ -3,6 +3,8 @@ package com.rosivaldolucas.magalu_connect.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +29,14 @@ public class User {
 
   @Column(nullable = false)
   private LocalDateTime updatedAt;
+
+  @ManyToMany
+  @JoinTable(
+          name = "user_has_role",
+          joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+  )
+  private final Set<Role> roles = new HashSet<>();
 
   protected User() { }
 
