@@ -1,7 +1,6 @@
 package com.rosivaldolucas.magalu_connect.service;
 
 import com.rosivaldolucas.magalu_connect.controller.dto.ScheduleMessageDTO;
-import com.rosivaldolucas.magalu_connect.entity.Message;
 import com.rosivaldolucas.magalu_connect.entity.User;
 import com.rosivaldolucas.magalu_connect.repository.MessageRepository;
 import org.springframework.stereotype.Service;
@@ -21,16 +20,6 @@ public class ScheduleMessageService {
 
   public void schedule(UUID userId, ScheduleMessageDTO scheduleMessageDTO) {
     User userSender = this.userService.findById(userId);
-
-    Message message = Message.createWith(
-            scheduleMessageDTO.message(),
-            scheduleMessageDTO.channelMessageType(),
-            scheduleMessageDTO.scheduledDate(),
-            userSender,
-            scheduleMessageDTO.recipients()
-    );
-
-    this.messageRepository.save(message);
   }
 
 }

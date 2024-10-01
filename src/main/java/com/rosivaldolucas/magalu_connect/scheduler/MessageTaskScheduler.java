@@ -1,6 +1,5 @@
 package com.rosivaldolucas.magalu_connect.scheduler;
 
-import com.rosivaldolucas.magalu_connect.service.MessageService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

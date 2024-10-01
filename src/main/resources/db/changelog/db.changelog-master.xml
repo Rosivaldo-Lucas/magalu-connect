@@ -6,4 +6,7 @@
 
   <include file="db/changelog/changes/202407022126-create-user-table.xml" />
   <include file="db/changelog/changes/202407042206-create-message-table.xml" />
+  <include file="db/changelog/changes/202407252036-create-role-table.xml" />
+  <include file="db/changelog/changes/202407252037-create-permission-table.xml" />
+  <include file="db/changelog/changes/202407252048-insert-role-and-permission.xml" />
 </databaseChangeLog>

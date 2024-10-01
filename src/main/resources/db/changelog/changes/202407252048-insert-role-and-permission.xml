@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <!-- Insert roles -->
+  <changeSet id="1721951378332-7" author="Rosivaldo Lucas">
+    <insert tableName="role_tb">
+      <column name="id" value="aad4073a-52fa-4705-8a83-e5451c2ada10"/>
+      <column name="name" value="ROLE_ADMIN"/>
+      <column name="created_at" valueDate="2024-07-25T00:00:00"/>
+      <column name="updated_at" valueDate="2024-07-25T00:00:00"/>
+    </insert>
+
+    <insert tableName="role_tb">
+      <column name="id" value="7d497e97-7ff9-4d27-8f9a-fe83457cb08e"/>
+      <column name="name" value="ROLE_USER"/>
+      <column name="created_at" valueDate="2024-07-25T00:00:00"/>
+      <column name="updated_at" valueDate="2024-07-25T00:00:00"/>
+    </insert>
+  </changeSet>
+
+  <!-- Insert permissions -->
+  <changeSet id="1721951378332-8" author="Rosivaldo Lucas">
+    <insert tableName="permission_tb">
+      <column name="id" value="59dc9578-c86a-4f1d-8546-3ce669c856a7"/>
+      <column name="name" value="PERMISSION_READ"/>
+      <column name="created_at" valueDate="2024-07-25T00:00:00"/>
+      <column name="updated_at" valueDate="2024-07-25T00:00:00"/>
+    </insert>
+
+    <insert tableName="permission_tb">
+      <column name="id" value="ababf7ea-6268-4fac-8c5e-ffb4b5ce7133"/>
+      <column name="name" value="PERMISSION_WRITE"/>
+      <column name="created_at" valueDate="2024-07-25T00:00:00"/>
+      <column name="updated_at" valueDate="2024-07-25T00:00:00"/>
+    </insert>
+  </changeSet>
+
+  <!-- Insert role-permission relationships -->
+  <changeSet id="1721951378332-9" author="Rosivaldo Lucas">
+    <insert tableName="role_has_permission">
+      <column name="role_id" value="aad4073a-52fa-4705-8a83-e5451c2ada10"/>
+      <column name="permission_id" value="59dc9578-c86a-4f1d-8546-3ce669c856a7"/>
+    </insert>
+
+    <insert tableName="role_has_permission">
+      <column name="role_id" value="aad4073a-52fa-4705-8a83-e5451c2ada10"/>
+      <column name="permission_id" value="ababf7ea-6268-4fac-8c5e-ffb4b5ce7133"/>
+    </insert>
+
+    <insert tableName="role_has_permission">
+      <column name="role_id" value="7d497e97-7ff9-4d27-8f9a-fe83457cb08e"/>
+      <column name="permission_id" value="59dc9578-c86a-4f1d-8546-3ce669c856a7"/>
+    </insert>
+  </changeSet>
+
+</databaseChangeLog>

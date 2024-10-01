@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <changeSet id="1721950684279-3" author="Rosivaldo Lucas">
+    <createTable tableName="role_tb">
+      <column name="id" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+
+      <column name="name" type="varchar(300)">
+        <constraints nullable="false" />
+      </column>
+
+      <column name="created_at" type="datetime">
+        <constraints nullable="false" />
+      </column>
+
+      <column name="updated_at" type="datetime">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="1721950881504-4" author="Rosivaldo Lucas">
+    <createTable tableName="user_has_role">
+      <column name="user_id" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+
+      <column name="role_id" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+    </createTable>
+
+    <addForeignKeyConstraint
+            baseTableName="user_has_role"
+            baseColumnNames="user_id"
+            constraintName="fk_user_has_role_user"
+            referencedTableName="user_table"
+            referencedColumnNames="id"
+    />
+
+    <addForeignKeyConstraint
+            baseTableName="user_has_role"
+            baseColumnNames="role_id"
+            constraintName="fk_user_has_role_role"
+            referencedTableName="role_tb"
+            referencedColumnNames="id"
+    />
+  </changeSet>
+
+</databaseChangeLog>

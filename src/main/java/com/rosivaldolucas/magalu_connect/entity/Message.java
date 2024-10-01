@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "message_tb")
+@Table(name = "message_table")
 public class Message {
 
   @Id
@@ -59,23 +59,6 @@ public class Message {
 
   protected Message() { }
 
-  private Message(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User userSender, Set<String> recipients) {
-    this.content = content;
-    this.status = MessageStatus.SCHEDULED;
-    this.channelType = channelType;
-    this.scheduledAt = scheduledAt;
-    this.userSender = userSender;
-    this.recipients = recipients;
-
-    LocalDateTime now = LocalDateTime.now();
-    this.createdAt = now;
-    this.updatedAt = now;
-  }
-
-  public static Message createWith(String content, ChannelMessageType channelType, LocalDateTime scheduledAt, User userSender, Set<String> recipients) {
-    return new Message(content, channelType, scheduledAt, userSender, recipients);
-  }
-
   public void markAsSent() {
     LocalDateTime now = LocalDateTime.now();
 
@@ -102,59 +85,4 @@ public class Message {
     this.updatedAt = now;
   }
 
-  public UUID getId() {
-    return id;
-  }
-
-  public String getContent() {
-    return content;
-  }
-
-  public MessageStatus getStatus() {
-    return status;
-  }
-
-  public ChannelMessageType getChannelType() {
-    return channelType;
-  }
-
-  public LocalDateTime getScheduledAt() {
-    return scheduledAt;
-  }
-
-  public LocalDateTime getSentAt() {
-    return sentAt;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public LocalDateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public User getUserSender() {
-    return userSender;
-  }
-
-  public Set<String> getRecipients() {
-    return recipients;
-  }
-
-  @Override
-  public String toString() {
-    return "Message{" +
-            "id=" + id +
-            ", content='" + content + '\'' +
-            ", status=" + status +
-            ", channelType=" + channelType +
-            ", scheduledAt=" + scheduledAt +
-            ", sentAt=" + sentAt +
-            ", createdAt=" + createdAt +
-            ", updatedAt=" + updatedAt +
-            ", userSender=" + userSender +
-            ", recipients=" + recipients +
-            '}';
-  }
 }

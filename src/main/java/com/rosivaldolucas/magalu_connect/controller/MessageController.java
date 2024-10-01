@@ -2,7 +2,6 @@ package com.rosivaldolucas.magalu_connect.controller;
 
 import com.rosivaldolucas.magalu_connect.controller.dto.ConsultMessageResponseDTO;
 import com.rosivaldolucas.magalu_connect.entity.Message;
-import com.rosivaldolucas.magalu_connect.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
