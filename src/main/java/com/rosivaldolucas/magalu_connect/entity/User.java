@@ -53,7 +53,7 @@ public class User implements Serializable {
           joinColumns = @JoinColumn(name = "user_id"),
           inverseJoinColumns = @JoinColumn(name = "authority_name_id")
   )
-  private Set<Authority> authorities = new HashSet<>();
+  private final Set<Authority> authorities = new HashSet<>();
 
   @JsonIgnore
   @ManyToMany(fetch = FetchType.LAZY)
@@ -62,7 +62,7 @@ public class User implements Serializable {
           joinColumns = @JoinColumn(name = "user_id"),
           inverseJoinColumns = @JoinColumn(name = "group_authority_name_id")
   )
-  private Set<GroupAuthority> groupAuthorities = new HashSet<>();
+  private final Set<GroupAuthority> groupAuthorities = new HashSet<>();
 
   protected User() { }
 
@@ -71,9 +71,15 @@ public class User implements Serializable {
     this.email = email;
     this.username = username;
     this.password = password;
-    this.groupAuthorities = groupAuthorities;
     this.enabled = Boolean.TRUE;
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
+
+    groupAuthorities.forEach(this::addGroupAuthority);
   }
+
+  public void addGroupAuthority(GroupAuthority groupAuthority) {
+    groupAuthorities.add(groupAuthority);
+  }
+
 }
