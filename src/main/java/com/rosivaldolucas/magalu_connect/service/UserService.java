@@ -1,27 +1,52 @@
 package com.rosivaldolucas.magalu_connect.service;
 
+import com.rosivaldolucas.magalu_connect.controller.dto.UserRegisterDTO;
 import com.rosivaldolucas.magalu_connect.entity.User;
-import com.rosivaldolucas.magalu_connect.exception.UserNotFoundException;
+import com.rosivaldolucas.magalu_connect.exception.DomainException;
 import com.rosivaldolucas.magalu_connect.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.Set;
 
+@AllArgsConstructor
 @Service
 public class UserService {
 
-  public final UserRepository userRepository;
+  private final UserRepository userRepository;
+  private final PasswordService passwordService;
+  private final GroupAuthorityService groupAuthorityService;
 
-  public UserService(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  public void create(UserRegisterDTO userRegisterDTO) {
+    this.verifyInput(userRegisterDTO);
+
+    String encryptedPassword = this.passwordService.encryptPassword(userRegisterDTO.password());
+
+    User newUser = new User(
+            userRegisterDTO.name(),
+            userRegisterDTO.email(),
+            userRegisterDTO.username(),
+            encryptedPassword,
+            Set.of(this.groupAuthorityService.getGroupAuthoritiesUser())
+    );
+
+    this.userRepository.save(newUser);
   }
 
-  public User findById(UUID userId) {
-    return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
-  }
+  private void verifyInput(UserRegisterDTO userRegisterDTO) {
+    boolean existsByEmail = this.userRepository.existsByEmail(userRegisterDTO.email());
+    if (existsByEmail) {
+      throw new DomainException("Email already exists");
+    }
 
-  public boolean existsById(UUID userId) {
-    return userRepository.existsById(userId);
+    boolean existsByUsername = this.userRepository.existsByUsername(userRegisterDTO.username());
+    if (existsByUsername) {
+      throw new DomainException("Username already exists");
+    }
+
+    if (userRegisterDTO.password().length() < 6) {
+      throw new DomainException("Password must be at least 6 characters");
+    }
   }
 
 }

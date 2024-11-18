@@ -1,19 +1,22 @@
 package com.rosivaldolucas.magalu_connect.controller.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record UserSignupDTO(
+public record UserRegisterDTO(
         @NotBlank
-        @Size(min = 3, max = 100)
         String name,
 
         @NotBlank
-        @Size(min = 5, max = 50)
+        @Email
+        String email,
+
+        @NotBlank
         String username,
 
         @NotBlank
-        @Size(min = 8, max = 100)
+        @Size(min = 6)
         String password
 ) {
 }

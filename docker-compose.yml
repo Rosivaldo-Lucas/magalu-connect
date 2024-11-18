@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: magalu-connect
       POSTGRES_PASSWORD: magalu-connect
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - db-data-db-magalu-connect:/var/lib/postgresql/data
 

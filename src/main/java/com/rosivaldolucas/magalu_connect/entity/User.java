@@ -1,12 +1,19 @@
 package com.rosivaldolucas.magalu_connect.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "user_table")
 public class User implements Serializable {
@@ -20,6 +27,9 @@ public class User implements Serializable {
 
   @Column(nullable = false)
   private String name;
+
+  @Column(unique = true, nullable = false)
+  private String email;
 
   @Column(unique = true, nullable = false)
   private String username;
@@ -36,6 +46,40 @@ public class User implements Serializable {
   @Column(nullable = false)
   private LocalDateTime updatedAt;
 
+  @JsonIgnore
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+          name = "user_has_authority_table",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "authority_name_id")
+  )
+  private final Set<Authority> authorities = new HashSet<>();
+
+  @JsonIgnore
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+          name = "user_has_group_authority_table",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "group_authority_name_id")
+  )
+  private final Set<GroupAuthority> groupAuthorities = new HashSet<>();
+
   protected User() { }
+
+  public User(String name, String email, String username, String password, Set<GroupAuthority> groupAuthorities) {
+    this.name = name;
+    this.email = email;
+    this.username = username;
+    this.password = password;
+    this.enabled = Boolean.TRUE;
+    this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
+
+    groupAuthorities.forEach(this::addGroupAuthority);
+  }
+
+  public void addGroupAuthority(GroupAuthority groupAuthority) {
+    groupAuthorities.add(groupAuthority);
+  }
 
 }
